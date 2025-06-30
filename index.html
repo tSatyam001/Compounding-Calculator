@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compounding Calculator</title>
+  <style>
+   body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1f64ed, #e1bee7);
+  padding: 30px;
+     }
+
+    .calculator {
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      max-width: 400px;
+      margin: auto;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .results {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 8px;
+    }
+    .results p {
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <h2>Compounding Calculator</h2>
+
+  <label for="investment">Investment Value (₹):</label>
+  <input type="number" id="investment" placeholder="e.g., 100000" />
+
+  <label for="cagr">CAGR (% per annum):</label>
+  <input type="number" id="cagr" step="0.01" placeholder="e.g., 12" />
+
+  <label for="years">Time Period (in years):</label>
+  <input type="number" id="years" placeholder="e.g., 5" />
+
+  <button onclick="calculate()">Calculate</button>
+
+ <div class="results" id="results" style="display: none;">
+  <p><strong>Final Value (₹):</strong> <span id="finalValue"></span></p>
+  <p><strong>Net Profit (₹):</strong> <span id="profit"></span></p>
+  <p><strong>Return Multiple (x times):</strong> <span id="multiple"></span></p>
+</div>
+
+</div>
+
+<script>
+  function calculate() {
+    const investment = parseFloat(document.getElementById("investment").value);
+    const cagr = parseFloat(document.getElementById("cagr").value);
+    const years = parseFloat(document.getElementById("years").value);
+
+    if (isNaN(investment) || isNaN(cagr) || isNaN(years) || investment <= 0 || cagr <= 0 || years <= 0) {
+      alert("Please enter valid positive numbers for all fields.");
+      return;
+    }
+
+    const finalValue = investment * Math.pow((1 + cagr / 100), years);
+    const netProfit = finalValue - investment;
+
+   document.getElementById("finalValue").innerText = finalValue.toFixed(2);
+document.getElementById("profit").innerText = netProfit.toFixed(2);
+document.getElementById("multiple").innerText = (finalValue / investment).toFixed(2) + "x";
+document.getElementById("results").style.display = "block";
+
+  }
+</script>
+
+</body>
+</html>
